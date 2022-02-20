@@ -21,9 +21,11 @@ namespace Tetris
             aTimer.Interval = 500;
 
             Console.Clear();
-            playField.DrawField();
+            Array.Copy(playField.emptyField, playField.field, 504);
+            figure.RandomFigure();
+            playField.DrawField(figure.figureNextType);
             Console.WriteLine();
-            Console.WriteLine("Press the Enter key to start or the Escape (Esc) key to exit...");
+            Console.WriteLine("Press the Any key to start or the Escape (Esc) key to exit...");
             Console.ReadKey();
             aTimer.Enabled = true;
             aTimer.Start();
@@ -90,13 +92,21 @@ namespace Tetris
                         figure.RandomFigure();
                         if (!figure.CheckSpace(playField))
                         {
-                            Console.WriteLine("GameOver");
-                            break;
+                            Array.Copy(playField.gameOver, 0, playField.field, 48, 360);
+                            Console.Clear();
+                            playField.DrawField(figure.figureNextType);
+                            Console.WriteLine();
+                            Console.WriteLine("Press the Any key to start or the Escape (Esc) key to exit...");
+                            if (Console.ReadKey().Key == ConsoleKey.Escape)
+                            {
+                                break;
+                            }
+                            Array.Copy(playField.emptyField, playField.field, 504);
+                            Array.Clear(figure.figureType);
                         }
-                        figure.DrawFigure(playField);
                     }
                     Console.Clear();
-                    playField.DrawField();
+                    playField.DrawField(figure.figureNextType);
                     Console.WriteLine();
                     Console.WriteLine("Press the Escape (Esc) key to exit...");
                     updateField = false;

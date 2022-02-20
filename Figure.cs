@@ -11,90 +11,94 @@ namespace Tetris
         public byte figureXCoord;
         public byte figureYCoord;
         public string figureName = "";
+        public string nextFigureName = "";
         public byte [,] figureTypeOld = new byte[4, 8];
         public byte[,] figureT = new byte[,]
         {
                 {0, 0, 0, 0, 0, 0, 0, 0},
-                {5, 5, 5, 5, 5, 5, 0, 0},
-                {0, 0, 5, 5, 0, 0, 0, 0},
+                {15, 15, 15, 15, 15, 15, 0, 0},
+                {0, 0, 15, 15, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
         public byte[,] figureL1 = new byte[,]
         {
                 {0, 0, 0, 0, 0, 0, 0, 0},
-                {5, 5, 5, 5, 5, 5, 0, 0},
-                {0, 0, 0, 0, 5, 5, 0, 0},
+                {25, 25, 25, 25, 25, 25, 0, 0},
+                {0, 0, 0, 0, 25, 25, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
         public byte[,] figureL2 = new byte[,]
         {
                 {0, 0, 0, 0, 0, 0, 0, 0},
-                {5, 5, 5, 5, 5, 5, 0, 0},
-                {5, 5, 0, 0, 0, 0, 0, 0},
+                {35, 35, 35, 35, 35, 35, 0, 0},
+                {35, 35, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
         public byte[,] figureSquare = new byte[,]
         {
                 {0, 0, 0, 0, 0, 0, 0, 0},
-                {5, 5, 5, 5, 0, 0, 0, 0},
-                {5, 5, 5, 5, 0, 0, 0, 0},
+                {45, 45, 45, 45, 0, 0, 0, 0},
+                {45, 45, 45, 45, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
         public byte[,] figureLine = new byte[,]
         {
                 {0, 0, 0, 0, 0, 0, 0, 0},
-                {5, 5, 5, 5, 5, 5, 5, 5},
+                {55, 55, 55, 55, 55, 55, 55, 55},
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
         public byte[,] figureStep1 = new byte[,]
         {
                 {0, 0, 0, 0, 0, 0, 0, 0},
-                {5, 5, 5, 5, 0, 0, 0, 0},
-                {0, 0, 5, 5, 5, 5, 0, 0},
+                {65, 65, 65, 65, 0, 0, 0, 0},
+                {0, 0, 65, 65, 65, 65, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
         public byte[,] figureStep2 = new byte[,]
         {
                 {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 5, 5, 5, 5, 0, 0},
-                {5, 5, 5, 5, 0, 0, 0, 0},
+                {0, 0, 75, 75, 75, 75, 0, 0},
+                {75, 75, 75, 75, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
         public byte[,] figureType = new byte[4, 8];
+        public byte[,] figureNextType = new byte[4, 8];
         public void RandomFigure()
         {
             Random rnd = new Random();
             int randInt = rnd.Next(0, 7);
+            Array.Copy(figureNextType, figureType, 32);
+            figureName = nextFigureName;
             switch (randInt)
             {
                 case 0:
-                    Array.Copy(figureT, figureType, 32);
-                    figureName = "figureT";
+                    Array.Copy(figureT, figureNextType, 32);
+                    nextFigureName = "figureT";
                     break;
                 case 1:
-                    Array.Copy(figureL1, figureType, 32);
-                    figureName = "figureL1";
+                    Array.Copy(figureL1, figureNextType, 32);
+                    nextFigureName = "figureL1";
                     break;
                 case 2:
-                    Array.Copy(figureL2, figureType, 32);
-                    figureName = "figureL2";
+                    Array.Copy(figureL2, figureNextType, 32);
+                    nextFigureName = "figureL2";
                     break;
                 case 3:
-                    Array.Copy(figureSquare, figureType, 32);
-                    figureName = "figureSquare";
+                    Array.Copy(figureSquare, figureNextType, 32);
+                    nextFigureName = "figureSquare";
                     break;
                 case 4:
-                    Array.Copy(figureLine, figureType, 32);
-                    figureName = "figureLine";
+                    Array.Copy(figureLine, figureNextType, 32);
+                    nextFigureName = "figureLine";
                     break;
                 case 5:
-                    Array.Copy(figureStep1, figureType, 32);
-                    figureName = "figureStep1";
+                    Array.Copy(figureStep1, figureNextType, 32);
+                    nextFigureName = "figureStep1";
                     break;
                 case 6:
-                    Array.Copy(figureStep2, figureType, 32);
-                    figureName = "figureStep2";
+                    Array.Copy(figureStep2, figureNextType, 32);
+                    nextFigureName = "figureStep2";
                     break;
             }
         }
@@ -105,7 +109,7 @@ namespace Tetris
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (figureType[i, j] == 5)
+                    if (figureType[i, j] % 10 == 5)
                     {
                         field.field[figureYCoord + i - 1, figureXCoord + j - 2] = figureType[i, j];
                     }
@@ -120,7 +124,7 @@ namespace Tetris
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (figureType[i, j] == 5)
+                    if (figureType[i, j] % 10 == 5)
                     {
                         field.field[figureYCoord + i - 1, figureXCoord + j - 2] = 0;
                     }
@@ -182,7 +186,7 @@ namespace Tetris
             {
                 for(int j = 0; j < 8; j++)
                 {
-                    if(figureType[i, j] == 5 && field.field[figureYCoord + i - 1, figureXCoord + j - 2] != 0)
+                    if(figureType[i, j] % 10 == 5 && field.field[figureYCoord + i - 1, figureXCoord + j - 2] != 0)
                     {
                         return false;
                     }
