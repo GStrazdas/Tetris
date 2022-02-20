@@ -66,5 +66,39 @@ namespace Tetris
                 Console.WriteLine();
             }
         }
+        public bool CheckLine(int lineNumber)
+        {
+            int line = lineNumber;
+            for (int i = 2; i < 22; i++)
+            {
+                if (field[line, i] == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public void RemoveFullLines()
+        {
+            for(int i = 19; i > 0; i--)
+            {
+                if (CheckLine(i))
+                {
+                    RemoveLine(i);
+                    i++;
+                }
+            }
+        }
+        public void RemoveLine(int lineNumber)
+        {
+            int line = lineNumber;
+            for (int i = line; i > 0; i--)
+            {
+                for (int j = 2; j < 22; j++)
+                {
+                    field[i, j] = field[i - 1, j];
+                }
+            }
+        }
     }
 }

@@ -16,10 +16,9 @@ namespace Tetris
         ConsoleKeyInfo cki;
         public void Run()
         {
-            
             System.Timers.Timer aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            aTimer.Interval = 1000;
+            aTimer.Interval = 500;
 
             Console.Clear();
             playField.DrawField();
@@ -27,11 +26,13 @@ namespace Tetris
             Console.WriteLine("Press the Enter key to start or the Escape (Esc) key to exit...");
             Console.ReadKey();
             aTimer.Enabled = true;
+            aTimer.Start();
 
             do
             {
                 if (Console.KeyAvailable)
                 {
+                    aTimer.Stop();
                     cki = Console.ReadKey();
                     if (cki.Key == ConsoleKey.Escape)
                     {
@@ -82,20 +83,24 @@ namespace Tetris
                 {
                     if (!figureOnField)
                     {
+                        playField.RemoveFullLines();
                         figureOnField = true;
                         figure.figureYCoord = 1;
                         figure.figureXCoord = 12;
                         figure.RandomFigure();
-                        if (figure.CheckSpace(playField))
+                        if (!figure.CheckSpace(playField))
                         {
-                            figure.DrawFigure(playField);
+                            Console.WriteLine("GameOver");
+                            break;
                         }
+                        figure.DrawFigure(playField);
                     }
                     Console.Clear();
                     playField.DrawField();
                     Console.WriteLine();
                     Console.WriteLine("Press the Escape (Esc) key to exit...");
                     updateField = false;
+                    aTimer.Start();
                 }
             }
             while (true);
